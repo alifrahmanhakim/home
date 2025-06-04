@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Workflow Zoho Projects Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        .panel {
+            display: none; /* Hidden by default */
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.5rem;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .panel.active {
+            display: block; /* Show active panel */
+            opacity: 1;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #2563eb; /* Blue-600 */
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #1d4ed8; /* Blue-700 */
+        }
+        .btn-secondary {
+            background-color: #e5e7eb; /* Gray-200 */
+            color: #374151; /* Gray-700 */
+        }
+        .btn-secondary:hover {
+            background-color: #d1d5db; /* Gray-300 */
+        }
+        .mock-ui {
+            border: 1px dashed #9ca3af; /* Gray-400 */
+            padding: 1rem;
+            border-radius: 0.375rem;
+            background-color: #f9fafb; /* Gray-50 */
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .mock-ui h4 { /* This style might not be needed if the h4 is replaced by an image */
+            font-weight: 600;
+            color: #1f2937; /* Gray-800 */
+            margin-bottom: 0.5rem;
+        }
+        .mock-button {
+            background-color: #d1d5db;
+            color: #1f2937;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            display: inline-block;
+            margin: 0.25rem;
+            font-size: 0.875rem;
+        }
+        .mock-input {
+            border: 1px solid #d1d5db;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        .nav-icon {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e5e7eb;
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+        }
+        .progress-bar {
+            height: 10px;
+            background-color: #2563eb;
+            border-radius: 0.25rem;
+            width: 0%; /* Initial width */
+            transition: width 0.3s ease-in-out;
+        }
+        .embedded-image {
+            width: 100%;
+            max-height: 400px; /* Batas tinggi maksimum agar tidak terlalu besar */
+            object-fit: contain; /* Menjaga aspek rasio gambar */
+            border-radius: 0.375rem; /* rounded-md */
+            border: 1px solid #d1d5db; /* border-gray-300 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="w-full max-w-3xl">
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-2">Tutorial Workflow Zoho Projects</h1>
+        <p class="text-sm text-gray-600 text-center mb-6">Ikuti langkah-langkah di bawah ini untuk memahami alur kerja.</p>
+
+        <div class="progress-bar-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <p id="progressText" class="text-sm text-gray-500 text-center mb-4">Langkah 1 dari 17</p>
+
+        <!-- Panel 1: Welcome & Initial Navigation -->
+        <div id="panel-1" class="panel active">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 1: Akses Zoho Project dan Menu "Task"</h2>
+            <p class="text-gray-600 mb-4">Untuk memulai, Anda akan melihat dasbor utama Zoho Project. Cari Panel Navigasi utama.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/SKiLRRM.png" 
+                     alt="Menu Dashboard Zoho Project Subdit STD" 
+                     class="embedded-image"
+                     onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Ini adalah tampilan awal saat Anda masuk ke Zoho Projects.</p>
+                <div class="mt-4">
+                    <span class="nav-icon">☰</span> <span class="font-semibold">Home</span>
+                    <p class="text-xs text-gray-500 mt-1">Akses Panel Navigasi utama yang dilambangkan dengan ikon tiga garis horizontal di sudut kiri atas antarmuka.</p>
+                </div>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Klik pada ikon tiga garis (☰) untuk membuka Panel Navigasi.</p>
+        </div>
+
+        <!-- Panel 2: Accessing Recent Projects -->
+        <div id="panel-2" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 2: Mengakses Proyek Terbaru</h2>
+            <p class="text-gray-600 mb-4">Setelah membuka Panel Navigasi, pilih opsi 'Recent Projects'.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/F1bijq0.png" 
+                     alt="Panel Navigasi" 
+                     class="embedded-image"
+                     onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <div class="mock-button">Home</div>
+                <div class="mock-button">Reports</div>
+                <div class="mock-button">Projects</div>
+                <div class="mock-button bg-blue-200">Recent Projects</div>
+                <p class="text-xs text-gray-500 mt-2">Daftar proyek yang baru saja diakses akan muncul di bawah 'Recent Projects'.</p>
+                <div class="mt-2">
+                    <div class="mock-button">CASR 91</div>
+                    <div class="mock-button">CASR PART XX CORSIA</div>
+                    <div class="mock-button">CASR 45</div>
+                </div>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Klik pada 'Recent Projects', lalu pilih nama proyek yang relevan (misalnya, "CASR 91").</p>
+        </div>
+
+        <!-- Panel 3: Project Dashboard & Accessing Tasks -->
+        <div id="panel-3" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 3: Dasbor Proyek & Akses Menu "Tasks"</h2>
+            <p class="text-gray-600 mb-4">Anda akan diarahkan ke Menu Dashboard proyek yang dipilih. Dari sini, navigasikan ke menu 'Tasks'.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/E0u3zsz.png" alt="Menu Dashboard pada pembahasan yang telah dipilih" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Ini adalah dasbor spesifik untuk proyek "STD-18 CASR 91". Anda dapat melihat ringkasan status tugas.</p>
+                <div class="mt-2">
+                    <span class="mock-button">Dashboard</span>
+                    <span class="mock-button bg-blue-200">Tasks</span>
+                    <span class="mock-button">Reports</span>
+                    <span class="mock-button">Documents</span>
+                    <span class="text-lg font-bold float-right mt-4">PROLEGKUM 2025</span>
+                </div>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Klik pada menu 'Tasks' untuk mengakses dan mengelola seluruh daftar tugas proyek.</p>
+        </div>
+
+        <!-- Panel 4: Task List Overview -->
+        <div id="panel-4" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 4: Tinjauan Daftar Tugas (Task List)</h2>
+            <p class="text-gray-600 mb-4">Anda sekarang berada di halaman daftar tugas untuk proyek yang dipilih.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/uRGOsAw.png" alt="Menu Task pada pembahasan yang telah dipilih" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Tabel ini menampilkan semua tugas dalam proyek, beserta status, tanggal, dll.</p>
+                <table class="w-full text-sm mt-2 border">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-1 border">ID</th>
+                            <th class="p-1 border">Task Name</th>
+                            <th class="p-1 border">Completion %</th>
+                            <th class="p-1 border">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-1 border"></td>
+                            <td class="p-1 border">Gap Analisis (Matrix Annex vs Existing CASR)</td>
+                            <td class="p-1 border text-center">53%</td>
+                            <td class="p-1 border text-center">In Progress</td>
+                        </tr>
+                        <tr>
+                            <td class="p-1 border"></td>
+                            <td class="p-1 border">Penyusunan Draft CASR (1)</td>
+                            <td class="p-1 border text-center">0%</td>
+                            <td class="p-1 border text-center">Open</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mock-button float-right mt-2">Add Task</div>
+            </div>
+            <p class="text-gray-600">Selanjutnya, kita akan belajar cara menambahkan daftar tugas baru.</p>
+        </div>
+
+        <!-- Panel 5: Adding a New Task List -->
+        <div id="panel-5" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 5: Menambahkan Daftar Tugas (Task List) Baru</h2>
+            <p class="text-gray-600 mb-4">Untuk menambahkan 'Task List' baru, gulir ke bagian paling bawah halaman daftar tugas yang sudah ada. Klik pada area input yang tersedia.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/uRGOsAw.png" alt="Opsi membuat Task List baru - bagian 1" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <img src="https://i.imgur.com/9fRimT1.png" alt="Opsi membuat Task List baru - bagian 2" class="embedded-image mt-2" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Di bawah daftar tugas yang ada, Anda akan menemukan opsi ini.</p>
+                <div class="my-2 p-2 border border-green-500 rounded">
+                    <p class="text-center text-gray-500">... (daftar tugas yang sudah ada) ...</p>
+                </div>
+                <div class="mock-button">Create Task List Above</div>
+                <div class="mock-button">Create Task List Below</div>
+                <input type="text" placeholder="Add Task List" class="mock-input mt-2">
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Pilih "Create Task List Below" (atau "Above"), lalu masukkan Judul yang deskriptif untuk 'Task List' baru tersebut.</p>
+        </div>
+
+        <!-- Panel 6: Viewing Task List Details & Adding a Task -->
+        <div id="panel-6" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 6: Melihat Detail Task List & Menambahkan Tugas</h2>
+            <p class="text-gray-600 mb-4">Untuk menambahkan tugas individual ke dalam 'Task List' yang sudah ada, pilih kolom 'View' pada 'Task List' yang bersangkutan.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/8jXJBVj.png" alt="Melihat detail Task List dan menambahkan Task" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Klik 'View' pada Task List "Gap Analisis..." untuk melihat detailnya.</p>
+                <div class="flex items-center my-2">
+                    <span># Gap Analisis (Matrix Annex vs Existing CASR)</span>
+                    <span class="mock-button ml-2 bg-green-200">View</span>
+                </div>
+                <p class="text-sm text-gray-500 mt-2">Setelah masuk ke detail Task List:</p>
+                <div class="mock-button float-right">Add Task</div>
+                <input type="text" placeholder="Add Task" class="mock-input mt-4 clear-both">
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Klik tombol "Add Task", lalu input Judul task. Status awal akan menjadi "Open".</p>
+        </div>
+
+        <!-- Panel 7: Adding a Subtask -->
+        <div id="panel-7" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 7: Menambahkan Sub-tugas (Subtask)</h2>
+            <p class="text-gray-600 mb-4">Untuk menambahkan sub-tugas pada tugas individual, klik opsi 'View' pada tugas spesifik tersebut. Kemudian gulir ke bawah hingga menemukan bagian 'Subtasks'.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/fUb6cW9.png" alt="Menambahkan Subtask - bagian 1" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <img src="https://i.imgur.com/TqwGfne.png" alt="Menambahkan Subtask - bagian 2" class="embedded-image mt-2" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Misalnya, Anda melihat detail tugas "Matriks".</p>
+                <div class="my-2 p-2 border rounded">
+                    <p class="font-semibold">Tugas: Matriks</p>
+                    <p class="text-xs">Status: Open</p>
+                    <div class="mt-4">
+                        <span class="mock-button text-xs">Comments</span>
+                        <span class="mock-button text-xs bg-blue-200">Subtasks</span>
+                        <span class="mock-button text-xs">Documents</span>
+                        <span class="mock-button float-right text-xs">Add Subtask</span>
+                    </div>
+                    <input type="text" placeholder="Add Subtask" class="mock-input mt-2 clear-both">
+                </div>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Masukkan uraian atau deskripsi untuk sub-tugas pada kolom yang disediakan ("Add Subtask").</p>
+        </div>
+
+        <!-- Panel 8: Inserting Documents - Step 1 -->
+        <div id="panel-8" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 8: Menyisipkan Dokumen (Bagian 1)</h2>
+            <p class="text-gray-600 mb-4">Dokumen pendukung dapat disisipkan pada tugas individual. Klik "View" pada salah satu "Task name" dalam "task list".</p>
+             <div class="mock-ui">
+                <img src="https://i.imgur.com/FZnajuK.png" alt="Melihat detail Task untuk menyisipkan dokumen - bagian 1" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <img src="https://i.imgur.com/lBvgCQx.png" alt="Melihat detail Task untuk menyisipkan dokumen - bagian 2" class="embedded-image mt-2" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                 <p class="text-sm text-gray-500">Anda berada di daftar tugas. Pilih tugas yang ingin ditambahkan dokumen, misalnya "Matriks", lalu klik "View".</p>
+                <table class="w-full text-sm mt-2 border">
+                    <tbody>
+                        <tr>
+                            <td class="p-1 border">C91-T134</td>
+                            <td class="p-1 border">Matriks</td>
+                            <td class="p-1 border text-center"><span class="mock-button bg-green-200 text-xs">View</span></td>
+                            <td class="p-1 border text-center">Open</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Setelah mengklik "View" pada task "Matriks", Anda akan masuk ke detail task tersebut. Gulir ke bawah menuju pilihan "Documents".</p>
+        </div>
+
+        <!-- Panel 9: Inserting Documents - Step 2 -->
+        <div id="panel-9" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 9: Menyisipkan Dokumen (Bagian 2)</h2>
+            <p class="text-gray-600 mb-4">Setelah masuk ke detail tugas dan menggulir ke bawah, Anda akan menemukan tab "Documents".</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/rdjGPBz.png" alt="Bagian Dokumen pada detail Task" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Di dalam detail tugas "Matriks":</p>
+                <div class="mt-2">
+                    <span class="mock-button text-xs">Comments</span>
+                    <span class="mock-button text-xs">Subtasks</span>
+                    <span class="mock-button text-xs bg-blue-200">Documents</span>
+                    <span class="mock-button text-xs">Invoices</span>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-gray-500">No documents associated</p>
+                    <p class="text-xs text-gray-400">Drop or attach relevant documents here.</p>
+                    <div class="mock-button bg-green-500 text-white mt-2">Attach Files</div>
+                </div>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Klik tombol "Attach Files" untuk menyisipkan dokumen pendukung.</p>
+        </div>
+
+        <!-- Panel 10: Inserting Documents - Step 3 (File Source) -->
+        <div id="panel-10" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 10: Menyisipkan Dokumen (Bagian 3 - Sumber File)</h2>
+            <p class="text-gray-600 mb-4">Setelah mengklik "Attach Files", sebuah menu akan muncul. Pengguna dapat memilih "Upload files" atau menyisipkan dokumen dari sumber lain.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/MEkRNgA.png" alt="Pilihan sumber untuk melampirkan file" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <div class="flex justify-around mb-4">
+                    <span class="mock-button">Desktop</span>
+                    <span class="mock-button">WorkDrive</span>
+                    <span class="mock-button">Google Drive</span>
+                    <span class="mock-button">SharePoint</span>
+                </div>
+                <div class="text-center border p-4 rounded">
+                    <p class="text-gray-500">Drag and drop</p>
+                    <p class="my-2">atau</p>
+                    <div class="mock-button bg-blue-500 text-white">Upload files</div>
+                    <p class="text-xs text-gray-400 mt-1">Paste an image (ctrl+v) | Whiteboard</p>
+                </div>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Pilih sumber file, misalnya "Upload files".</p>
+        </div>
+        
+        <!-- Panel 11: Inserting Documents - Step 4 (Finalize) -->
+        <div id="panel-11" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 11: Menyisipkan Dokumen (Bagian 4 - Finalisasi)</h2>
+            <p class="text-gray-600 mb-4">Setelah memilih file yang akan disisipkan, konfirmasi untuk melampirkannya.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/IgAXaHT.png" alt="Konfirmasi lampiran file" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">File yang dipilih akan ditampilkan.</p>
+                <div class="border p-2 my-2 rounded bg-gray-100">
+                    <p class="text-sm">📄 Matriks Perubahan CASR 91 Amdt 5 to Amdt 6 Subpart C (1).docx <span class="text-xs text-gray-500">45KB</span></p>
+                </div>
+                 <div class="text-center border p-4 rounded mt-2">
+                    <p class="text-gray-500">File siap diunggah.</p>
+                </div>
+                <div class="mt-4">
+                    <span class="mock-button bg-green-500 text-white">Attach Files</span>
+                    <span class="mock-button">Cancel</span>
+                </div>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Klik "Attach Files" untuk finalisasi.</p>
+        </div>
+
+        <!-- Panel 12: Setting Task Dates - Step 1 -->
+        <div id="panel-12" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 12: Menentukan Tanggal Pelaksanaan (Bagian 1)</h2>
+            <p class="text-gray-600 mb-4">Pilih task dalam tabel "Task List". Untuk menentukan tanggal mulai, klik pada kolom "Start Date" yang berada di baris "Task Name" yang akan diatur.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/0phQhfW.png" alt="Memilih Task untuk mengatur tanggal" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Anda berada di detail Task List "Gap Analisis...".</p>
+                 <table class="w-full text-sm mt-2 border">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-1 border">ID</th>
+                            <th class="p-1 border">Task Name</th>
+                            <th class="p-1 border">Status</th>
+                            <th class="p-1 border">Start Date</th>
+                            <th class="p-1 border">Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-1 border">C91-T120</td>
+                            <td class="p-1 border">Proses Drafting Internal Annex 2</td>
+                            <td class="p-1 border text-center bg-blue-100">In Progress</td>
+                            <td class="p-1 border text-center cursor-pointer hover:bg-yellow-100">mm-dd-yyyy</td>
+                            <td class="p-1 border text-center"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Klik pada kolom "Start Date" (mm-dd-yyyy) untuk task "Proses Drafting Internal Annex 2".</p>
+        </div>
+
+        <!-- Panel 13: Setting Task Dates - Step 2 (Start Date) -->
+        <div id="panel-13" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 13: Menentukan Tanggal Pelaksanaan (Bagian 2 - Start Date)</h2>
+            <p class="text-gray-600 mb-4">Sebuah kalender akan muncul. Tentukan tanggal dimulainya "Task" tersebut.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/jms9k48.png" alt="Kalender untuk memilih Start Date" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Pilih tanggal dari kalender.</p>
+                <div class="p-4 border rounded mt-2 bg-white shadow">
+                    <p class="text-center font-semibold mb-2">Juni 2025</p>
+                    <div class="grid grid-cols-7 gap-1 text-center text-xs">
+                        <span>MIN</span><span>SEN</span><span>SEL</span><span>RAB</span><span>KAM</span><span>JUM</span><span>SAB</span>
+                        <span class="text-gray-400">26</span><span class="text-gray-400">27</span><span class="text-gray-400">28</span><span class="text-gray-400">29</span><span class="text-gray-400">30</span><span class="text-gray-400">31</span><span>1</span>
+                        <span>2</span><span>3</span><span>4</span><span class="bg-blue-500 text-white rounded-full p-1">5</span><span>6</span><span>7</span><span>8</span>
+                        </div>
+                </div>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Pilih tanggal mulai yang diinginkan dari kalender.</p>
+        </div>
+        
+        <!-- Panel 14: Setting Task Dates - Step 3 (Due Date) -->
+        <div id="panel-14" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 14: Menentukan Tanggal Pelaksanaan (Bagian 3 - Due Date)</h2>
+            <p class="text-gray-600 mb-4">Dengan metode yang serupa, pilih kolom "Due Date" untuk menetapkan tenggat waktu penyelesaian tugas. Kolom "Duration" akan terisi otomatis.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/wyNF8xW.png" alt="Kolom Start Date, Due Date, Duration" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Setelah Start Date dan Due Date dipilih:</p>
+                <div class="grid grid-cols-3 gap-2 mt-2 text-center">
+                    <div>
+                        <p class="text-xs font-semibold">Start Date</p>
+                        <p class="p-2 border rounded bg-gray-100">01-01-2025</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold">Due Date</p>
+                        <p class="p-2 border rounded bg-green-100 cursor-pointer hover:bg-yellow-100">07-31-2025</p>
+                    </div>
+                     <div>
+                        <p class="text-xs font-semibold">Duration</p>
+                        <p class="p-2 border rounded bg-gray-100">212 days</p>
+                    </div>
+                </div>
+                 <p class="text-xs text-gray-500 mt-2">Klik pada kolom "Due Date" (07-31-2025) untuk memilih tanggal dari kalender.</p>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Klik kolom "Due Date" dan pilih tanggal akhir dari kalender. Durasi akan dihitung otomatis.</p>
+        </div>
+
+        <!-- Panel 15: Updating Task Status - Step 1 -->
+        <div id="panel-15" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 15: Mengisi Kolom "Status" (Bagian 1)</h2>
+            <p class="text-gray-600 mb-4">Kolom "Status" berfungsi untuk melacak perkembangan terkini dari suatu tugas. Pada menu tugas, klik pada kolom "Status" di baris tugas yang relevan.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/U6FNuF3.png" alt="Memilih Task untuk mengubah status" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Anda berada di detail Task List.</p>
+                 <table class="w-full text-sm mt-2 border">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-1 border">ID</th><th class="p-1 border">Task Name</th><th class="p-1 border">Completion %</th><th class="p-1 border">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-1 border">C91-T134</td><td class="p-1 border">Matriks</td><td class="p-1 border text-center">0%</td>
+                            <td class="p-1 border text-center bg-red-200 cursor-pointer hover:bg-yellow-100">Open</td>
+                        </tr>
+                         <tr>
+                            <td class="p-1 border">C91-T129</td><td class="p-1 border">CCEFOD</td><td class="p-1 border text-center">100%</td>
+                            <td class="p-1 border text-center bg-green-200">Closed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Klik pada kolom "Status" untuk task "Matriks" (yang saat ini "Open").</p>
+        </div>
+
+        <!-- Panel 16: Updating Task Status - Step 2 (Select Status) -->
+        <div id="panel-16" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 16: Mengisi Kolom "Status" (Bagian 2 - Pilih Status)</h2>
+            <p class="text-gray-600 mb-4">Pilihan status yang tersedia umumnya meliputi "Open", "In Progress", dan "Closed". Pilihlah status yang paling sesuai.</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/U6FNuF3.png" alt="Pilihan status Task" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <p class="text-sm text-gray-500">Setelah mengklik kolom status untuk task "Matriks":</p>
+                <div class="mt-2 border rounded p-2 inline-block bg-white shadow">
+                    <div class="p-1 hover:bg-gray-100 cursor-pointer"><span class="inline-block w-3 h-3 rounded-full bg-red-500 mr-2"></span>Open</div>
+                    <div class="p-1 hover:bg-gray-100 cursor-pointer"><span class="inline-block w-3 h-3 rounded-full bg-blue-500 mr-2"></span>In Progress</div>
+                    <div class="p-1 hover:bg-gray-100 cursor-pointer"><span class="inline-block w-3 h-3 rounded-full bg-gray-500 mr-2"></span>In Review</div>
+                    <div class="p-1 hover:bg-gray-100 cursor-pointer"><span class="inline-block w-3 h-3 rounded-full bg-green-500 mr-2"></span>Closed</div>
+                    <div class="p-1 hover:bg-gray-100 cursor-pointer"><span class="inline-block w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>On Hold</div>
+                </div>
+            </div>
+            <p class="text-gray-600"><strong>Aksi:</strong> Pilih status yang sesuai, misalnya "Closed".</p>
+        </div>
+
+        <!-- Panel 17: End of Workflow / Confirmation -->
+        <div id="panel-17" class="panel">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">Langkah 17: Akhir Workflow / Konfirmasi</h2>
+            <p class="text-gray-600 mb-4">Berikut adalah contoh task yang statusnya sudah di "Closed". Task Name akan otomatis tercoret (strikethrough).</p>
+            <div class="mock-ui">
+                <img src="https://i.imgur.com/MXatEW4.png" alt="Task dengan status Closed" class="embedded-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/E2E8F0/4A5568?text=Pratinjau+Gambar+Tidak+Tersedia'; this.alt='Pratinjau Gambar Tidak Tersedia';">
+                <table class="w-full text-sm mt-2 border">
+                     <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-1 border">ID</th><th class="p-1 border">Task Name</th><th class="p-1 border">Completion %</th><th class="p-1 border">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-1 border">C91-T135</td>
+                            <td class="p-1 border"><del>Matriks</del></td>
+                            <td class="p-1 border text-center">100%</td>
+                            <td class="p-1 border text-center bg-green-200">Closed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-green-600 font-semibold text-lg text-center mt-6">Selamat! Anda telah menyelesaikan tutorial workflow Zoho Projects.</p>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="mt-8 flex justify-between">
+            <button id="prevBtn" class="btn btn-secondary" onclick="navigatePanel(-1)">Sebelumnya</button>
+            <button id="nextBtn" class="btn btn-primary" onclick="navigatePanel(1)">Berikutnya</button>
+        </div>
+    </div>
+
+    <script>
+        let currentPanel = 1;
+        const totalPanels = 17; // Update this if you add/remove panels
+
+        function showPanel(panelNumber) {
+            // Hide all panels
+            document.querySelectorAll('.panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            // Show the target panel
+            const targetPanel = document.getElementById(`panel-${panelNumber}`);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = panelNumber === 1;
+            document.getElementById('nextBtn').disabled = panelNumber === totalPanels;
+            
+            if (panelNumber === totalPanels) {
+                document.getElementById('nextBtn').innerText = "Selesai";
+            } else {
+                 document.getElementById('nextBtn').innerText = "Berikutnya";
+            }
+
+            // Update progress bar
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const progressPercentage = (panelNumber / totalPanels) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+            progressText.innerText = `Langkah ${panelNumber} dari ${totalPanels}`;
+        }
+
+        function navigatePanel(direction) {
+            currentPanel += direction;
+            if (currentPanel < 1) {
+                currentPanel = 1;
+            }
+            if (currentPanel > totalPanels) {
+                currentPanel = totalPanels;
+                // Optionally, you can add a "finish" action here
+            }
+            showPanel(currentPanel);
+        }
+
+        // Initialize the first panel
+        document.addEventListener('DOMContentLoaded', () => {
+            showPanel(currentPanel);
+        });
+    </script>
+
+</body>
+</html>
