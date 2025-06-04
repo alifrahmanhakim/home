@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Dasbor Interaktif Subdit Standardisasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Slate & Sky Blue -->
+    <!-- Application Structure Plan: Saya merancang aplikasi ini sebagai dasbor interaktif satu halaman. Daripada mengikuti struktur manual yang linear, saya mengelompokkan konten berdasarkan aplikasi (CCEFOD, PQs, RSI, dll.). Setiap bagian berfungsi sebagai modul mandiri yang menyajikan (1) Ringkasan tujuan aplikasi, (2) Visualisasi data interaktif (grafik/diagram) dari laporan, dan (3) Panduan penggunaan terperinci dalam format tab atau akordeon yang dapat diklik. Struktur ini lebih unggul karena memungkinkan pengguna dengan cepat memahami fungsi dan hasil utama setiap aplikasi melalui dasbor, sambil tetap menyediakan akses mudah ke instruksi mendalam tanpa membanjiri mereka dengan teks. Alur ini mendukung eksplorasi non-linear dan pencarian informasi yang efisien. -->
+    <!-- Visualization & Content Choices: 
+        - CCEFOD Data -> Goal: Compare proportions -> Viz: Interactive Pie Chart (Chart.js). Justification: Efektif untuk menunjukkan komposisi status kepatuhan secara visual dan lebih menarik daripada tabel statis. (Chart ini telah dihapus sesuai permintaan pengguna)
+        - PQ Area Data -> Goal: Compare quantities -> Viz: Bar Chart (Chart.js). Justification: Ideal untuk membandingkan jumlah PQ di berbagai kategori diskrit. (Chart ini telah dihapus sesuai permintaan pengguna)
+        - PQ Critical Element -> Goal: Show distribution -> Viz: Radar Chart (Chart.js). Justification: Cara terbaik untuk menampilkan kinerja di beberapa metrik (CE-1 hingga CE-8) secara bersamaan. (Chart ini telah dihapus sesuai permintaan pengguna)
+        - RSI Workflow -> Goal: Organize process -> Viz: HTML/Tailwind Flowchart. Justification: Mengubah prosedur yang padat teks menjadi diagram alur visual yang mudah diikuti, dengan detail yang dapat diperluas sesuai kebutuhan.
+        - Master Glossary -> Goal: Organize data -> Viz: Searchable HTML Table. Justification: Memberikan utilitas pencarian langsung untuk akses cepat ke definisi, yang jauh lebih fungsional daripada daftar statis. (Bagian ini telah disederhanakan sesuai permintaan pengguna)
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        /* .chart-container, .radar-chart-container, .bar-chart-container definitions can be removed if no charts are left, 
+           but keeping them for now in case other charts are added later or if some general styling is still desired.
+           If all charts are gone, these can be safely removed.
+        */
+        .chart-container { position: relative; width: 100%; max-width: 450px; margin: auto; height: 320px; md:height: 400px; }
+        .radar-chart-container { position: relative; width: 100%; max-width: 450px; margin: auto; height: 320px; md:height: 400px; }
+        .bar-chart-container { position: relative; width: 100%; max-width: 800px; margin: auto; height: 400px; }
+        .smooth-scroll { scroll-behavior: smooth; }
+        .tab-button.active { border-color: #0284c7; color: #0284c7; background-color: #f0f9ff; }
+        .tab-content { 
+            /* max-height: 400px; removed */
+            /* overflow-y: auto; removed */
+            /* Konten akan menyesuaikan tinggi secara otomatis */
+        } 
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 smooth-scroll">
+
+    <!-- Header & Navigation Removed -->
+    <!-- 
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <h1 class="text-xl font-bold text-slate-900">Panduan Dasbor Subdit STD</h1>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#welcome" class="text-sm font-medium text-slate-600 hover:text-sky-600 transition-colors">Beranda</a>
+                    <a href="#ccefod" class="text-sm font-medium text-slate-600 hover:text-sky-600 transition-colors">CCEFOD</a>
+                    <a href="#pqs" class="text-sm font-medium text-slate-600 hover:text-sky-600 transition-colors">PQs</a>
+                    <a href="#rsi" class="text-sm font-medium text-slate-600 hover:text-sky-600 transition-colors">RSI</a>
+                </nav>
+            </div>
+        </div>
+    </header> 
+    -->
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8 space-y-12">
+
+        <!-- Welcome Section -->
+        <section id="welcome" class="text-center p-8 bg-white rounded-2xl shadow-lg border border-slate-200">
+            <h2 class="text-3xl font-bold text-sky-700 mb-2">Selamat Datang di Panduan Interaktif Dasboard Subdit Standardisasi</h2>
+            <p class="max-w-3xl mx-auto text-slate-600 mb-6">Panduan ini dirancang untuk membantu Anda memahami dan menggunakan aplikasi-aplikasi penting secara efektif. Jelajahi setiap modul untuk melihat ringkasan data, visualisasi, dan panduan penggunaan terperinci.</p>
+            <!-- Container for buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <!-- Tombol Panduan Manual Database -->
+                <a href="https://docs.google.com/document/d/1_QJGCvfqPZeGE0W1zq2pYI6T6mwbhsJs/edit?usp=sharing&ouid=110465881957839805222&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                        <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.5a.75.75 0 0 0 .5.707A9.735 9.735 0 0 0 6 21a9.707 9.707 0 0 0 5.25-1.533.75.75 0 0 0 0-1.334A8.207 8.207 0 0 1 6 19.5a8.235 8.235 0 0 1-2.25-.383V5.63a8.235 8.235 0 0 1 2.25-.383A8.207 8.207 0 0 1 11.25 6.07v12.1Z" />
+                        <path d="M12.75 4.533A9.707 9.707 0 0 1 18 3a9.735 9.735 0 0 1 3.25.555.75.75 0 0 1 .5.707v14.5a.75.75 0 0 1-.5.707A9.735 9.735 0 0 1 18 21a9.707 9.707 0 0 1-5.25-1.533.75.75 0 0 1 0-1.334A8.207 8.207 0 0 0 18 19.5a8.235 8.235 0 0 0 2.25-.383V5.63a8.235 8.235 0 0 0-2.25-.383A8.207 8.207 0 0 0 12.75 6.07v12.1Z" />
+                    </svg>
+                    Panduan Manual Database
+                </a>
+                <!-- Tombol Chat WhatsApp -->
+                <a aria-label="Chat on WhatsApp" href="https://wa.me/+6282170234433" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                        <path d="M16.6 14.21a12.52 12.52 0 0 0-1.5-2.07c-.28-.25-.46-.25-.67 0l-.46.56c-.21.22-.42.28-.63.14a8.1 8.1 0 0 1-2.36-1.47 8.05 8.05 0 0 1-1.62-2.04c-.1-.21 0-.39.14-.52l.42-.49c.18-.18.25-.42.14-.63l-.94-2.2c-.14-.25-.32-.32-.56-.32h-.52c-.21 0-.46.07-.67.35C7 5.18 6.44 5.78 6.44 6.7c0 1.11.42 2.13.84 3.08.42.94.98 1.82 1.71 2.61.73.79 1.62 1.44 2.64 1.88.94.42 1.92.59 2.96.59.91 0 1.64-.18 2.2-.73.25-.28.25-.52.25-.73v-.46c0-.25-.07-.42-.28-.56ZM12 2.04A9.91 9.91 0 0 0 2.04 12a9.91 9.91 0 0 0 9.96 9.96 9.91 9.91 0 0 0 9.96-9.96A9.91 9.91 0 0 0 12 2.04Z"/>
+                    </svg>
+                    Chat via WhatsApp
+                </a>
+            </div>
+        </section>
+
+        <!-- CCEFOD Section -->
+        <section id="ccefod" class="bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold mb-1">Aplikasi Monitoring CCEFOD</h3>
+                <p class="text-slate-600">Aplikasi ini berfungsi sebagai sistem untuk memonitor dan melaporkan perbedaan (differences) terhadap ICAO Annexes. Terdiri dari data referensi (Existing) dan modul untuk mencatat usulan baru (Usulan).</p>
+            </div>
+
+            <!-- Alur Kerja CCEFOD -->
+            <div class="mb-8">
+                 <h4 class="text-lg font-semibold mb-4 text-center">Alur Kerja Aplikasi Monitoring CCEFOD</h4>
+                 <div class="flex flex-col md:flex-row items-stretch justify-center space-y-4 md:space-y-0 md:space-x-4 text-center">
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">1️⃣</div>
+                        <h5 class="font-semibold">Input/Update Data</h5>
+                        <p class="text-xs text-slate-500">Staf menginput data perbedaan SARP atau usulan baru CCEFOD.</p>
+                    </div>
+                    <div class="text-2xl text-slate-300 hidden md:flex md:items-center">→</div>
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">2️⃣</div>
+                        <h5 class="font-semibold">Review & Validasi</h5>
+                        <p class="text-xs text-slate-500">Data CCEFOD direview untuk kelengkapan, akurasi, dan validitas.</p>
+                    </div>
+                    <div class="text-2xl text-slate-300 hidden md:flex md:items-center">→</div>
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">3️⃣</div>
+                        <h5 class="font-semibold">Pelaporan & Monitoring</h5>
+                        <p class="text-xs text-slate-500">Data digunakan untuk pelaporan ke ICAO dan monitoring kepatuhan internal.</p>
+                    </div>
+                 </div>
+                 <div class="mt-6 p-4 bg-orange-100 rounded-lg border border-orange-300">
+                     <p class="text-sm text-orange-800 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2 flex-shrink-0">
+                            <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.519 13c1.155 2-.273 4.5-2.599 4.5H4.48c-2.326 0-3.754-2.5-2.599-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                        </svg>
+                        <span><b class="font-semibold">Poin Kunci:</b>Setelah Pembahasan dan Adanya Perubahan: Sangat penting untuk segera memperbarui data yang mengalami perubahan di dalam aplikasi.
+                            Tandai Perubahan: Setiap data yang diubah wajib diberikan tanda centang (checklist) perubahan. Ini berfungsi sebagai indikator visual yang jelas bahwa item tersebut telah dimodifikasi.
+                            Isi Detail Perubahan: Tidak cukup hanya menandai, deskripsikan secara rinci perubahan apa saja yang telah dilakukan. Pencatatan ini krusial untuk transparansi, pelacakan, dan pemahaman bersama di kemudian hari</span>
+                    </p>
+                 </div>
+                 <!-- Iframe Overall Annex CCEFOD Added Below Poin Kunci -->
+                 <div class="mt-6">
+                    <h4 class="text-lg font-semibold mb-3 text-center">Laporan Keseluruhan Annex CCEFOD</h4>
+                    <iframe height='500px' width='100%' frameborder='0' allowTransparency='true' scrolling='auto' src='https://creatorapp.zohopublic.com/subditstandardisasi/monitoring-ccefod-icao-/page-embed/Overall_Annex/pnM7qQd7XQxU9zBseA7zEeFsxXdexhtkrOmhb3qzBzBnExWmt10H5GJQDaxFarmvyhnr7dAS3psrDfMX5X2zFUJ51W2azp5RyxfD' title="Laporan Keseluruhan Annex CCEFOD - Zoho Creator"></iframe>
+                    <p class="text-xs text-slate-500 mt-1 text-center">Laporan Keseluruhan Annex CCEFOD dari Database.</p>
+                 </div>
+                 <!-- End Iframe Overall Annex CCEFOD -->
+            </div>
+            <!-- Akhir Alur Kerja CCEFOD -->
+            
+            <div class="grid md:grid-cols-1 gap-8 items-start"> 
+                <div>
+                    <div class="mb-6">
+                        <iframe height='500px' width='100%' frameborder='0' allowTransparency='true' scrolling='auto' src='https://creatorapp.zohopublic.com/subditstandardisasi/monitoring-ccefod-icao-/report-embed/ALL_SUMMMARY/dfuD3fsWOwHSyHmVjGyvOCFAb2Xmqu0aHkd7XAAgH5Xt9qFMuT7CBMBV1R3v47a46MEZzWtR044fWdOzN76P1CG5yS4gG6VnYnNg' title="Laporan Ringkasan CCEFOD - Zoho Creator"></iframe>
+                        <p class="text-xs text-slate-500 mt-1 text-center">Laporan Ringkasan CCEFOD dari Database.</p>
+                    </div>
+
+                    <h4 class="text-lg font-semibold mb-3">Panduan Penggunaan CCEFOD</h4>
+                    <div id="ccefod-tabs" class="interactive-guide-container space-y-3">
+                         <!-- Tab 1: Prosedur Pengisian Formulir -->
+                        <button data-target="ccefod-procedure-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                            <span class="font-semibold">📝 Prosedur Pengisian Formulir</span>
+                            <p class="text-sm text-slate-500 mt-1">Langkah-langkah pengisian formulir CCEFOD dari persiapan hingga penyimpanan.</p>
+                        </button>
+                        <div id="ccefod-procedure-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-4">
+                            <div>
+                                <h5 class="font-semibold text-md">A. Persiapan Sebelum Pengisian:</h5>
+                                <ul class="list-decimal list-inside ml-4 text-sm space-y-1 mt-1">
+                                    <li>Identifikasi SARP yang Akan Diperiksa: Staf Pemeriksa mengidentifikasi SARP ICAO spesifik yang menjadi subjek pemeriksaan kepatuhan.</li>
+                                    <li>Pengumpulan Data dan Bukti: Kumpulkan semua dokumen referensi (UU Nasional, Peraturan, SOP internal, bukti implementasi) yang relevan dengan SARP yang diperiksa.</li>
+                                    <li>Akses Formulir: Buka browser web dan akses URL Formulir Pemeriksaan Kepatuhan (CC) / EFOD yang baru.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-md">B. Pengisian Detail Formulir:</h5>
+                                <p class="text-sm mt-1">Untuk setiap item SARP yang diperiksa, Staf Pemeriksa akan mengisi field-field berikut secara berurutan:</p>
+                                <ul class="list-disc list-inside ml-4 text-sm space-y-2 mt-1">
+                                    <li><b>Apakah ada perubahan:</b> Pilih opsi yang sesuai (misalnya "Ya" atau "Tidak") untuk mengindikasikan apakah ada perubahan terkait implementasi SARP ini sejak pelaporan terakhir atau dibandingkan dengan standar yang ada.</li>
+                                    <li><b>Usulan perubahan:</b> Jika pada field "Apakah ada perubahan" diisi "Ya" atau jika ada usulan untuk mengubah cara implementasi atau regulasi terkait, deskripsikan usulan perubahan tersebut di sini.</li>
+                                    <li><b>Lampiran (Annex ICAO):</b> Sebutkan nomor Lampiran (Annex) ICAO yang relevan (misalnya, "Annex 1", "Annex 6 Part I").</li>
+                                    <li><b>Referensi Lampiran (Detail dalam Annex):</b> Detailkan nomor pasal, sub-pasal, atau paragraf spesifik dalam Lampiran ICAO yang dirujuk. Contoh: "2.1.3.4" atau "Paragraph 5.2".</li>
+                                    <li><b>Standar atau Praktik yang Direkomendasikan:</b> Salin teks lengkap dari Standar atau Praktik yang Direkomendasikan ICAO yang sedang dievaluasi. Pastikan teks akurat dan sesuai dengan versi terbaru.</li>
+                                    <li><b>Undang-Undang Negara Bagian, Peraturan atau Referensi Dokumen:</b> Sebutkan referensi spesifik ke regulasi nasional, undang-undang, keputusan menteri, atau dokumen internal organisasi yang mengimplementasikan atau berkaitan dengan SARP tersebut. Sertakan nomor pasal, ayat, atau halaman yang relevan. Contoh: "PKPS Bagian X Pasal Y ayat Z" atau "SOP/OPS/001 Bagian 3.2".</li>
+                                    <li><b>Tingkat Implementasi SARP:</b> Pilih tingkat implementasi dari opsi yang tersedia (misalnya, Fully Implemented, Partially Implemented, Not Implemented, Not Applicable). Lakukan penilaian yang objektif berdasarkan bukti yang ada.</li>
+                                    <li><b>Teks Perbedaan yang Akan Diberitahukan ke ICAO:</b> Jika tingkat implementasi adalah "Partially Implemented" atau "Not Implemented", atau jika ada perbedaan dalam metode implementasi, maka teks perbedaan harus diisi. Jelaskan secara rinci perbedaan antara SARP ICAO dengan regulasi atau praktik nasional/organisasi.</li>
+                                    <li><b>Komentar Termasuk Alasan Perbedaan:</b> Berikan penjelasan lebih lanjut mengenai alasan adanya perbedaan (jika ada). Sebutkan rencana tindak lanjut atau justifikasi mengapa perbedaan tersebut ada.</li>
+                                    <li><b>Status:</b> Pilih status dari item pemeriksaan ini (misalnya, "Open", "Closed", "In Progress", "Requires Review").</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-md">C. Verifikasi dan Penyimpanan/Pengiriman:</h5>
+                                <ul class="list-decimal list-inside ml-4 text-sm space-y-1 mt-1">
+                                    <li>Tinjau Ulang: Setelah semua field terisi untuk satu item SARP atau keseluruhan formulir, Staf Pemeriksa meninjau kembali semua data yang telah diinput untuk memastikan keakuratan, kelengkapan, dan konsistensi.</li>
+                                    <li>Verifikasi oleh Supervisor (jika berlaku): Supervisor/Koordinator Kepatuhan melakukan verifikasi terhadap data yang telah diinput. Berikan feedback jika ada koreksi.</li>
+                                    <li>Simpan/Submit: Staf Pemeriksa (atau Supervisor, sesuai alur kerja) mengklik tombol "Simpan" atau "Submit" pada formulir di aplikasi.</li>
+                                    <li>Konfirmasi: Pastikan ada notifikasi atau indikasi bahwa data telah berhasil disimpan atau dikirim.</li>
+                                    <li>Dokumentasi: Simpan bukti pengiriman atau nomor referensi jika disediakan oleh sistem.</li>
+                                </ul>
+                            </div>
+                            <p class="text-sm italic">(Catatan: Diagram alir visual akan ditambahkan jika memungkinkan dalam platform ini atau sebagai lampiran terpisah).</p>
+                        </div>
+
+                        <!-- Tab 2: Penjelasan Grafik & Statistik -->
+                        <button data-target="ccefod-graph-stats-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                            <span class="font-semibold">📊 Penjelasan Grafik & Statistik</span>
+                             <p class="text-sm text-slate-500 mt-1">Memahami visualisasi data CCEFOD.</p>
+                        </button>
+                        <div id="ccefod-graph-stats-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-4">
+                            <h5 class="font-semibold text-md">Penjelasan Tampilan Graph and Statistical Breakdown</h5>
+                            <div>
+                                <h6 class="font-medium text-sm">1. Diagram Pie (Lingkaran)</h6>
+                                <p class="text-sm ml-4 mt-1">Visualisasi status Level of Implementation dari CCEFOD berdasarkan jumlah entri. Setiap warna mewakili satu kategori:</p>
+                                <ul class="list-disc list-inside ml-8 text-sm space-y-1 mt-1">
+                                    <li>No difference</li>
+                                    <li>More exacting or exceeds</li>
+                                    <li>Different in character or other means of compliance</li>
+                                    <li>Less protective or partially implemented or not implemented</li>
+                                    <li>Not applicable</li>
+                                    <li>Insufficient Information Provided</li>
+                                    <li>Empty / Tidak ada data</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h6 class="font-medium text-sm">2. Summary Statistik</h6>
+                                <ul class="list-disc list-inside ml-4 text-sm space-y-1 mt-1">
+                                   <li>Total Differences by Annex: (Ini adalah jumlah entri yang memiliki perbedaan selain "No Difference").</li>
+                                   <li>Total CCEFOD Annex 1: (Ini menunjukkan total jumlah entri dalam Annex 1, semua status).</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h6 class="font-medium text-sm">3. Kesimpulan Data Visual</h6>
+                                <ul class="list-disc list-inside ml-4 text-sm space-y-1 mt-1">
+                                    <li>Data ini sangat berguna untuk:
+                                        <ul class="list-circle list-inside ml-4">
+                                            <li>Monitoring progres harmonisasi regulasi.</li>
+                                            <li>Identifikasi area yang masih difference (kategori More exacting or exceeds, Different in character or other means of compliance, Less protective or partially implemented or not implemented).</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Tab 3: Penggunaan Tabel Data CCEFOD -->
+                        <button data-target="ccefod-table-usage-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                            <span class="font-semibold">ሠ Penggunaan Tabel Data CCEFOD</span>
+                             <p class="text-sm text-slate-500 mt-1">Interaksi dengan tabel data: edit, hapus, filter.</p>
+                        </button>
+                        <div id="ccefod-table-usage-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-4">
+                            <h5 class="font-semibold text-md">Tampilan Tabel: CC/EFOD Compliance and Difference</h5>
+                            <p class="text-sm">Data dari tabel ini otomatis dihitung dan ditampilkan dalam menu Graph and Statistical Breakdown (seperti pie chart pada gambar sebelumnya).</p>
+                            <p class="text-sm">Pada tampilan ini bisa di klik pada kolom tabel apabila setelah pengisian CCEFOD ada yang ingin diedit, atau dihapus.</p>
+                            <div>
+                                <h6 class="font-medium text-sm">Fitur Filter (Pencarian)</h6>
+                                <p class="text-sm ml-4 mt-1">Pada menu ini klik ”Cari” untuk memfilter. Contohnya, jika Anda hanya ingin menampilkan item dengan level of implementation ”more exacting or exceeds”.</p>
+                            </div>
+                        </div>
+
+                        <!-- Tab 4: Impor & Ekspor Data -->
+                        <button data-target="ccefod-import-export-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                            <span class="font-semibold">📤 Impor & Ekspor Data</span>
+                             <p class="text-sm text-slate-500 mt-1">Cara impor dan ekspor data CCEFOD.</p>
+                        </button>
+                        <div id="ccefod-import-export-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-4">
+                             <p class="text-sm">Pada menu “ … “ (titik tiga) terdapat opsi jika ingin melakukan ”impor” dari file excel yang sudah dikerjakan sebelumnya atau bisa juga ingin ”export” dalam bentuk pdf atau excel.</p>
+                             <div>
+                                <h6 class="font-medium text-sm">Ekspor ke PDF</h6>
+                                <p class="text-sm ml-4 mt-1">Berikut merupakan contoh tampilan jika ingin ekspor ke file PDF. Klik pratinjau dan sesuaikan orientasi (landscape atau portrait) dan pilih "sesuaikan dengan halaman".</p>
+                             </div>
+                             <div>
+                                <h6 class="font-medium text-sm">Impor File</h6>
+                                <p class="text-sm ml-4 mt-1">Berikut merupakan tampilan jika ingin impor file. Pilih "local storage" dan disarankan dalam bentuk file Excel yang sudah rapi dan sesuai template.</p>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PQs Section -->
+        <section id="pqs" class="bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
+             <div class="mb-6">
+                <h3 class="text-2xl font-bold mb-1">Aplikasi Monitoring PQs (Protocol Questions)</h3>
+                <p class="text-slate-600">Aplikasi untuk mengelola dan memonitor Protocol Questions (PQs), baik data yang sudah ada (existing) maupun usulan perubahan.</p>
+            </div>
+            <!-- Alur Kerja PQs -->
+            <div class="mb-8">
+                 <h4 class="text-lg font-semibold mb-4 text-center">Alur Kerja Aplikasi Monitoring PQs</h4>
+                 <div class="flex flex-col md:flex-row items-stretch justify-center space-y-4 md:space-y-0 md:space-x-4 text-center">
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">1️⃣</div>
+                        <h5 class="font-semibold">Input Usulan PQ</h5>
+                        <p class="text-xs text-slate-500">Staf menginput usulan perubahan PQ atau PQ baru ke dalam sistem.</p>
+                    </div>
+                    <div class="text-2xl text-slate-300 hidden md:flex md:items-center">→</div>
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">2️⃣</div>
+                        <h5 class="font-semibold">Evaluasi & Pembahasan</h5>
+                        <p class="text-xs text-slate-500">Usulan PQ dievaluasi dan dibahas oleh tim terkait atau pemangku kepentingan.</p>
+                    </div>
+                    <div class="text-2xl text-slate-300 hidden md:flex md:items-center">→</div>
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">3️⃣</div>
+                        <h5 class="font-semibold">Persetujuan & Implementasi</h5>
+                        <p class="text-xs text-slate-500">Jika disetujui, PQ diperbarui atau diimplementasikan dalam database PQs existing.</p>
+                    </div>
+                 </div>
+                 <div class="mt-6 p-4 bg-orange-100 rounded-lg border border-orange-300">
+                    <p class="text-sm text-orange-800 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2 flex-shrink-0">
+                            <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.519 13c1.155 2-.273 4.5-2.599 4.5H4.48c-2.326 0-3.754-2.5-2.599-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                        </svg>
+                        <span><b class="font-semibold">Poin Kunci:</b> Aplikasi PQs terdiri dari dua komponen utama: "Monitoring Existing PQs" sebagai database referensi tetap dan "Monitoring Usulan PQs" untuk mencatat perubahan atau pembaruan. Proses evaluasi usulan dilakukan sebelum data existing disesuaikan.</span>
+                    </p>
+                 </div>
+            </div>
+            <!-- Akhir Alur Kerja PQs -->
+            <div>
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold mb-3 text-center">Laporan Usulan Monitoring PQs</h4>
+                    <iframe height='500px' width='100%' frameborder='0' allowTransparency='true' scrolling='auto' src='https://creatorapp.zohopublic.com/subditstandardisasi/usulan-monitoring-pqs/report-embed/PQs_Report/8ZKSGyv00NQvA1xjT5pJbe3H2gFQbxh4SfRqNM1wTExUvDZfUJz5v60vkKQy9Tgu5tgCUbM3ySMB6uxbfHK4tCakAT1U92Up6h6S' title="Laporan Usulan Monitoring PQs - Zoho Creator"></iframe>
+                    <p class="text-xs text-slate-500 mt-1 text-center">Laporan PQs dari Database.</p>
+                </div>
+
+                <h4 class="text-lg font-semibold mb-3">Panduan Penggunaan Aplikasi PQs</h4>
+                <div id="pqs-tabs" class="interactive-guide-container space-y-3">
+                    <!-- Tab 1: Pendahuluan Sistem PQs -->
+                    <button data-target="pqs-intro-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">📖 Pendahuluan Sistem PQs</span>
+                        <p class="text-sm text-slate-500 mt-1">Menu utama dalam sistem PQs.</p>
+                    </button>
+                    <div id="pqs-intro-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
+                        <p class="text-sm">Dalam sistem terdapat dua menu utama:</p>
+                        <ul class="list-disc list-inside ml-4 text-sm space-y-1 mt-2">
+                            <li><b>Monitoring Existing PQs:</b> Berisi data PQ hasil migrasi dari OneDrive yang bersifat tetap dan tidak diubah. Menu ini berfungsi sebagai database referensi dan pembanding terhadap usulan perubahan.</li>
+                            <li><b>Monitoring Usulan PQs:</b> Digunakan untuk mencatat usulan perubahan atau pembaruan PQs. Menu ini menjadi dasar evaluasi sebelum dilakukan penyesuaian terhadap data existing.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab 2: Panduan Pengisian Form Monitoring Usulan PQs -->
+                    <button data-target="pqs-form-guide-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">✅ Panduan Pengisian Form Monitoring Usulan PQs</span>
+                        <p class="text-sm text-slate-500 mt-1">Detail kolom dan cara pengisian formulir usulan PQs.</p>
+                    </button>
+                    <div id="pqs-form-guide-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                        <p class="text-sm"><b>Tujuan:</b> Dokumen ini digunakan untuk menginput dan mengelola data usulan perubahan atau pembaruan Protocol Questions (PQs) dalam sistem. Form ini menjadi dasar evaluasi sebelum data existing disesuaikan.</p>
+                        <ol class="list-decimal list-inside space-y-2 text-sm">
+                            <li><b>PQ NUMBER:</b> Nomor unik untuk mengidentifikasi setiap PQ. (Input: Masukkan nomor PQ sesuai format internal yang berlaku, misal: 4.913, 4.909)</li>
+                            <li><b>PROTOCOL QUESTION:</b> Pertanyaan protokol yang menjadi fokus evaluasi. (Input: Ketik atau copy paste teks lengkap dari pertanyaan protokol tersebut)</li>
+                            <li><b>GUIDANCE FOR REVIEW OF EVIDENCE:</b> Petunjuk atau arahan untuk menilai bukti pendukung yang terkait PQ. (Input: Tuliskan penjelasan atau instruksi review, bisa berupa standar atau checklist terkait)</li>
+                            <li><b>ICAO REFERENCE:</b> Referensi dokumen ICAO yang terkait dengan PQ tersebut. (Input: Masukkan nomor atau kode dokumen ICAO, misal: Doc 9760, Annex 6)</li>
+                            <li><b>PPQ:</b> Kode atau singkatan dari Primary Protocol Question. (Input: pilih apakah PQ ini termasuk kedalam PPQ atau tidak)</li>
+                            <li><b>CRITICAL ELEMENT:</b> Elemen penting yang menjadi perhatian dalam evaluasi PQ. (Input: Ketik nama elemen kritikal, misal: CE-4, CE-6)</li>
+                            <li><b>REMARKS:</b> Catatan tambahan atau keterangan terkait usulan PQ. (Input: Bebas, tuliskan komentar, catatan khusus, atau hal penting lain)</li>
+                            <li><b>EVIDENCE:</b> Bukti pendukung yang mendukung usulan perubahan PQ. (Input: Ketikkan deskripsi bukti, atau link ke dokumen pendukung)</li>
+                            <li><b>ANSWER:</b> Jawaban atau status dari PQ. (Input: ketik jawaban dari PQ)</li>
+                            <li><b>POC (Point of Contact):</b> Orang atau pihak yang bertanggung jawab atau bisa dihubungi terkait PQ ini. (Input: Masukkan nama POC)</li>
+                            <li><b>ICAO STATUS IMPLEMENTATION:</b> Status implementasi PQ menurut standar ICAO. (Input: Pilih salah satu status berikut: Satisfactory, No satisfactory)</li>
+                            <li><b>CAP (Corrective Action Plan):</b> Rencana tindakan korektif yang akan diambil terkait PQ. (Input: Jelaskan rencana atau langkah perbaikan jika diperlukan)</li>
+                            <li><b>SSP COMPONENT:</b> Apakah PQ tersebut termasuk didalam SSP komponen. (Input: Masukkan nama komponen SSP yang relevan, misal: Safety Policy, Risk Management)</li>
+                            <li><b>STATUS:</b> Status dokumen atau usulan PQ. (Input: Pilih status dari opsi: Draft, Existing, Final)</li>
+                        </ol>
+                    </div>
+
+                    <!-- Tab 3: Tips Pengisian Efisien -->
+                    <button data-target="pqs-tips-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">🔄 Tips Pengisian Efisien</span>
+                    </button>
+                    <div id="pqs-tips-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Pastikan mengacu pada referensi terbaru dari ICAO dan dokumen internal organisasi.</li>
+                            <li>Lengkapi semua kolom wajib untuk mempercepat proses evaluasi.</li>
+                            <li>Gunakan bahasa jelas dan ringkas dalam kolom REMARKS dan CAP.</li>
+                            <li>Jika tidak ada data atau informasi, isikan dengan “N/A” atau “Tidak tersedia”.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Tab 4: Tampilan Tabel Monitoring PQ (PQ Report – Monitoring Existing PQs) -->
+                    <button data-target="pqs-report-existing-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">� Tampilan Tabel Monitoring PQ (Existing PQs)</span>
+                        <p class="text-sm text-slate-500 mt-1">Melihat data PQ yang sudah ada (migrasi).</p>
+                    </button>
+                    <div id="pqs-report-existing-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
+                        <p class="text-sm">Pada menu Monitoring Existing PQs, pilih submenu PQ Report untuk melihat tampilan data PQ dalam bentuk tabel. Tabel ini menampilkan hasil migrasi PQ dari dokumen OneDrive ke sistem aplikasi, yang berfungsi sebagai database referensi utama. Data ini tidak diubah, dan digunakan sebagai pembanding saat ada usulan perubahan PQ. Tampilan ini membantu pengguna dalam monitoring, evaluasi, dan perbandingan terhadap PQ yang diusulkan pada menu terpisah.</p>
+                    </div>
+
+                    <!-- Tab 5: Fitur Filter Area PQ -->
+                    <button data-target="pqs-filter-area-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">🗺️ Fitur Filter Area PQ</span>
+                    </button>
+                    <div id="pqs-filter-area-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
+                        <p class="text-sm">Pada tampilan PQ Report, tersedia fitur filter kustom untuk memudahkan pengguna dalam memilih dan menampilkan PQ berdasarkan area spesifik. Area PQ yang tersedia meliputi:</p>
+                        <ul class="list-disc list-inside ml-4 text-sm space-y-1 mt-2">
+                            <li>PEL (Personnel Licensing)</li>
+                            <li>AGA (Aerodromes)</li>
+                            <li>ANS (Air Navigation Services)</li>
+                            <li>AIG (Accident and Incident Investigation)</li>
+                            <li>ORG (Organization)</li>
+                            <li>LEG (Legislation)</li>
+                            <li>SSP (State Safety Programme)</li>
+                            <li>OPS (Operations)</li>
+                            <li>AIR (Airworthiness)</li>
+                        </ul>
+                        <p class="text-sm mt-2">Fitur ini memudahkan proses pencarian, analisis, dan monitoring PQ sesuai dengan area tanggung jawab masing-masing unit atau subdirektorat.</p>
+                    </div>
+
+                    <!-- Tab 6: Fitur Pencarian dan Filter Lanjutan -->
+                    <button data-target="pqs-advanced-filter-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">🔍 Fitur Pencarian dan Filter Lanjutan</span>
+                    </button>
+                    <div id="pqs-advanced-filter-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
+                        <p class="text-sm">Pada bagian kanan tampilan PQ Report, tersedia fitur pencarian dan filter lanjutan untuk mempermudah pengguna menelusuri data berdasarkan kriteria tertentu. Beberapa kolom yang dapat difilter antara lain: PQ Number, Protocol Question, Guidance for Review of Evidence, ICAO References, PPQ (YES/NO), Critical Element (CE-1 hingga CE-8), Remarks, Evidence, POC, ICAO Status Implementation, dan lainnya.</p>
+                        <p class="text-sm mt-2"><b>Contoh penggunaan:</b> Pengguna dapat mencari semua PQ yang berstatus PPQ = NO dan termasuk dalam Critical Element = CE-1 untuk memfokuskan analisis pada PQ yang belum memenuhi ketentuan pada area CE-1. Tekan tombol "Cari" setelah menentukan kriteria untuk menampilkan hasil pencarian secara spesifik.</p>
+                    </div>
+                    
+                    <!-- Tab 7: Impor dan Ekspor Data PQ Report -->
+                    <button data-target="pqs-import-export-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">📤 Impor dan Ekspor Data PQ Report</span>
+                    </button>
+                    <div id="pqs-import-export-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
+                        <p class="text-sm">Sama seperti pada fitur CCEFOD, tabel PQ Report juga mendukung fungsi impor dan ekspor data untuk mempermudah pengelolaan dan pelaporan. Tabel PQ Report mendukung fitur impor dan ekspor data untuk memudahkan proses dokumentasi dan pelaporan.</p>
+                        <ul class="list-disc list-inside ml-4 text-sm space-y-1 mt-2">
+                            <li><b>Ekspor:</b> Data dapat diekspor ke format Excel (.xlsx) maupun PDF, baik seluruh data maupun hasil filter tertentu (misalnya berdasarkan area, status PPQ, atau Critical Element).</li>
+                            <li><b>Impor:</b> Pengguna dapat mengunggah data PQ secara massal menggunakan file Excel (.xlsx) sesuai dengan template yang disediakan oleh sistem.</li>
+                        </ul>
+                        <p class="text-sm mt-2">⚠️ Pastikan data yang diimpor mengikuti struktur dan format template agar tidak terjadi error saat proses unggah.</p>
+                    </div>
+
+                    <!-- Tab 8: Fitur Dashboard pada Monitoring Existing PQs -->
+                    <button data-target="pqs-dashboard-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">📈 Fitur Dashboard pada Monitoring Existing PQs</span>
+                    </button>
+                    <div id="pqs-dashboard-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
+                        <p class="text-sm">Menu Dashboard menyediakan tampilan visual yang membantu pengguna memantau status keseluruhan dari berbagai area PQ secara lebih mudah dan cepat. Dashboard menyajikan informasi yang diklasifikasikan berdasarkan:</p>
+                        <ul class="list-disc list-inside ml-4 text-sm space-y-1 mt-2">
+                            <li><b>Area PQ:</b> PEL, AGA, ANS, AIG, ORG, LEG, SSP, OPS, AIR.</li>
+                            <li><b>Critical Element (CE):</b> Menampilkan jumlah PQ berdasarkan 8 elemen kritis dalam pengawasan keselamatan penerbangan (CE-1 sampai CE-8).</li>
+                            <li><b>Status PPQ:</b> Melacak jumlah PQ yang termasuk dalam kategori prioritas.</li>
+                            <li><b>ICAO Status Implementation:</b> Memberikan gambaran umum status implementasi standar ICAO yang masih unsatisfactory.</li>
+                        </ul>
+                        <p class="text-sm mt-2">📊 Fitur dashboard ini sangat membantu dalam menyusun strategi peningkatan kepatuhan dan efektivitas pengawasan keselamatan secara nasional.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSI Section -->
+        <section id="rsi" class="bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold mb-1">Aplikasi Resolution Safety Issue (RSI)</h3>
+                <p class="text-slate-600">Sarana terpusat untuk mencatat, memantau, dan menindaklanjuti setiap isu keselamatan yang teridentifikasi dari laporan KNKT atau MOR.</p>
+            </div>
+            <div>
+                 <h4 class="text-lg font-semibold mb-4 text-center">Alur Kerja Resolusi Isu Keselamatan</h4>
+                 <div class="flex flex-col md:flex-row items-stretch justify-center space-y-4 md:space-y-0 md:space-x-4 text-center">
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">1️⃣</div>
+                        <h5 class="font-semibold">Input Laporan</h5>
+                        <p class="text-xs text-slate-500">Mencatat data dari laporan/surat KNKT atau data MOR.</p>
+                    </div>
+                    <div class="text-2xl text-slate-300 hidden md:flex md:items-center">→</div>
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">2️⃣</div>
+                        <h5 class="font-semibold">Review DKPPU</h5>
+                        <p class="text-xs text-slate-500">Menganalisis dan mengisi sinopsis, temuan, & faktor kontribusi.</p>
+                    </div>
+                    <div class="text-2xl text-slate-300 hidden md:flex md:items-center">→</div>
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">3️⃣</div>
+                        <h5 class="font-semibold">Tindak Lanjut</h5>
+                        <p class="text-xs text-slate-500">Mendokumentasikan respon dan memonitor implementasi rekomendasi.</p>
+                    </div>
+                 </div>
+                 <div class="mt-6 p-4 bg-orange-100 rounded-lg border border-orange-300">
+                     <p class="text-sm text-orange-800 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2 flex-shrink-0">
+                            <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.519 13c1.155 2-.273 4.5-2.599 4.5H4.48c-2.326 0-3.754-2.5-2.599-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                        </svg>
+                        <span><b class="font-semibold">Poin Kunci:</b> Aplikasi ini memiliki dua form utama: "Master Data & Review Laporan Investigasi KNKT" untuk isu dari laporan resmi KNKT, dan "Form Data by MOR/KNKT" untuk isu dari Mandatory Occurrence Report. Keduanya memiliki database tabel untuk melihat, mengedit, dan memfilter data yang sudah diinput.</span>
+                    </p>
+                 </div>
+
+                 <!-- Panduan Penggunaan Aplikasi RSI (Interactive) -->
+                 <div class="mt-6 mb-6">
+                    <h4 class="text-lg font-semibold mb-3">Panduan Penggunaan Aplikasi RSI</h4>
+                    <div id="rsi-tabs" class="interactive-guide-container space-y-3">
+                        <!-- Tab 1: Pendahuluan Umum -->
+                        <button data-target="rsi-intro-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                            <span class="font-semibold">📖 Pendahuluan Umum Aplikasi RSI</span>
+                        </button>
+                        <div id="rsi-intro-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
+                            <p class="text-sm">Menu ini berfungsi sebagai sarana untuk mencatat, memantau, dan menindaklanjuti setiap isu keselamatan yang teridentifikasi, guna memastikan bahwa tindakan korektif dan preventif dapat dilaksanakan secara tepat waktu dan terdokumentasi.</p>
+                            <p class="text-sm mt-2">Di dalam menu ini terdapat beberapa sub-komponen utama yang akan dijelaskan lebih lanjut.</p>
+                        </div>
+
+                        <!-- Tab 2: Master Data & Review Laporan Investigasi KNKT -->
+                        <button data-target="rsi-master-review-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                            <span class="font-semibold">📑 Master Data & Review Laporan Investigasi KNKT</span>
+                             <p class="text-sm text-slate-500 mt-1">Input dan review laporan resmi dari KNKT.</p>
+                        </button>
+                        <div id="rsi-master-review-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                            <p class="text-sm">Berfungsi untuk mencatat data isu keselamatan yang teridentifikasi serta melakukan review terhadap laporan investigasi yang diterbitkan oleh KNKT. Fitur ini memungkinkan pengguna untuk menelusuri kronologi kejadian, rekomendasi keselamatan, serta rencana tindakan korektif yang diperlukan.</p>
+                            <p class="text-sm">Menu ini berfungsi untuk mencatat data isu keselamatan yang berasal dari laporan atau surat resmi yang diterbitkan oleh Komite Nasional Keselamatan Transportasi (KNKT), serta melakukan review terhadap isi laporan tersebut. Fitur ini membantu pengguna dalam menelusuri kronologi kejadian, memahami rekomendasi keselamatan, dan menyusun rencana tindak lanjut yang sesuai.</p>
+                            <p class="text-sm">Klik bagian ”tambahkan baru” untuk menginput data. Di dalamnya tersedia formulir input data yang terbagi menjadi beberapa bagian sebagai berikut:</p>
+                            
+                            <div class="ml-4 space-y-2">
+                                <p class="text-sm font-medium">a. Form Master Data & Review Laporan Investigasi KNKT</p>
+                                <p class="text-sm ml-4">Klik bagian ”tambahkan” maka akan muncul tampilan untuk mencatat informasi dasar terkait laporan atau surat dari KNKT:</p>
+                                <ul class="list-disc list-inside ml-8 text-sm">
+                                    <li>Tanggal Terbit</li>
+                                    <li>Status Laporan</li>
+                                    <li>Nomor Laporan</li>
+                                    <li>Klasifikasi Kejadian</li>
+                                    <li>Operator</li>
+                                    <li>Registrasi</li>
+                                    <li>Tipe pesawat</li>
+                                    <li>Tanggal kejadian</li>
+                                    <li>Lokasi</li>
+                                    <li>Taxonomy</li>
+                                </ul>
+
+                                <p class="text-sm font-medium mt-2">b. Sumber (Laporan/Surat KNKT)</p>
+                                <p class="text-sm ml-4">Klik bagian “tambahkan”. Muncul menu untuk mengisi detail surat/laporan resmi yang menjadi dasar review:</p>
+                                <ul class="list-disc list-inside ml-8 text-sm">
+                                    <li>Nomor Surat</li>
+                                    <li>Tanggal Surat</li>
+                                    <li>Perihal</li>
+                                    <li>Tanggal Disposisi DKPPU</li>
+                                </ul>
+
+                                <p class="text-sm font-medium mt-2">c. Summary Review DKPPU terhadap Laporan/Surat KNKT</p>
+                                <p class="text-sm ml-4">Klik bagian “tambahkan”. Muncul menu untuk mengisi detail Laporan/Surat KNKT. Merupakan hasil analisis DKPPU terhadap laporan KNKT, mencakup:</p>
+                                <ul class="list-disc list-inside ml-8 text-sm">
+                                    <li>Synopsis (Ringkasan Kejadian)</li>
+                                    <li>Finding (Temuan)</li>
+                                    <li>Contributing Factor (Faktor Penyebab)</li>
+                                    <li>Safety Action (Tindakan Keselamatan)</li>
+                                    <li>Hasil Pembahasan DKPPU</li>
+                                </ul>
+
+                                <p class="text-sm font-medium mt-2">d. Tindak Lanjut Rekomendasi KNKT</p>
+                                <p class="text-sm ml-4">Digunakan untuk mencatat dan memantau implementasi rekomendasi keselamatan:</p>
+                                <ul class="list-disc list-inside ml-8 text-sm">
+                                    <li>Penerima Rekomendasi</li>
+                                    <li>Rekomendasi</li>
+                                    <li>Tindak Lanjut / Respon DKPPU</li>
+                                    <li>Monitoring Tindak Lanjut Penerima Rekomendasi</li>
+                                    <li>Status</li>
+                                </ul>
+                                <p class="text-sm ml-4 mt-2">Fitur ini memastikan bahwa seluruh proses review dan tindak lanjut terhadap laporan KNKT terdokumentasi secara lengkap, akurat, dan dapat ditelusuri kembali jika diperlukan.</p>
+                                <p class="text-sm ml-4 mt-2">Setelah seluruh data pada formulir telah diisi dengan lengkap dan benar, pengguna dapat menekan tombol "Kirim" untuk menyimpan data ke dalam sistem. Tombol ini berfungsi untuk menginput dan merekam seluruh informasi terkait laporan/surat KNKT, hasil review DKPPU, serta tindak lanjut terhadap rekomendasi keselamatan secara resmi ke dalam basis data. Pastikan semua kolom telah terisi sesuai dengan standar agar proses penyimpanan berhasil dan data dapat digunakan untuk keperluan monitoring serta pelaporan lebih lanjut.</p>
+                            </div>
+                        </div>
+
+                        <button data-target="rsi-database-master-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                            <span class="font-semibold">🗃️ Database Master Data & Review Laporan Investigasi</span>
+                             <p class="text-sm text-slate-500 mt-1">Melihat dan mengelola data laporan KNKT yang tersimpan.</p>
+                        </button>
+                        <div id="rsi-database-master-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                             <p class="text-sm">Fitur ini menampilkan seluruh rekaman data yang telah disimpan, termasuk informasi dari laporan/surat KNKT, hasil review DKPPU, dan status tindak lanjut rekomendasi. Tampilan Master Data disusun dalam format tabel agar memudahkan pencarian, penelusuran, dan pemantauan perkembangan setiap isu keselamatan. Pengguna juga dapat melakukan pencarian berdasarkan nomor laporan, operator, atau status tindak lanjut untuk mempercepat proses analisis dan pelaporan.</p>
+                             <p class="text-sm">Karena banyaknya data yang ditampilkan dalam tabel, beberapa informasi mungkin tidak terlihat secara keseluruhan dalam tampilan awal. Untuk melihat data secara lengkap, pengguna dapat klik pada baris atau kolom yang ingin ditinjau, kemudian pilih opsi "Edit". Melalui tampilan edit ini, seluruh detail data akan ditampilkan secara menyeluruh dan pengguna juga dapat melakukan perubahan atau pembaruan informasi apabila terdapat koreksi atau penyesuaian dari input sebelumnya.</p>
+                        </div>
+                        
+                        <button data-target="rsi-mor-data-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                            <span class="font-semibold">📋 Data by MOR / KNKT</span>
+                             <p class="text-sm text-slate-500 mt-1">Input dan pengelolaan data dari MOR terkait KNKT.</p>
+                        </button>
+                        <div id="rsi-mor-data-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                            <p class="text-sm">Menyajikan data dari Mandatory Occurrence Report (MOR) dan laporan investigasi KNKT. Informasi ini menjadi acuan dalam identifikasi tren keselamatan dan pemantauan efektivitas tindakan yang telah diambil.</p>
+                            
+                            <p class="text-sm font-medium mt-2">Menu: Form Data by MOR KNKT</p>
+                            <p class="text-sm ml-4 mb-2">Menu ini digunakan untuk mencatat data kejadian keselamatan berdasarkan laporan dari Mandatory Occurrence Report (MOR) yang dikelola atau dikaitkan dengan investigasi oleh Komite Nasional Keselamatan Transportasi (KNKT). Formulir ini bertujuan untuk mendokumentasikan kejadian yang memerlukan perhatian, pemantauan, serta tindak lanjut dari aspek keselamatan penerbangan. Form input terdiri dari beberapa bagian utama sebagai berikut:</p>
+                            <ul class="list-decimal list-inside ml-8 text-sm space-y-1">
+                                <li><b>Informasi Umum Kejadian:</b> Tanggal, Kategori (Jenis kejadian), Operator, Organisasi (Pilih salah satu: AOC 135, AOC 121, OC 91, PSC 141), Registrasi Pesawat, Tipe Pesawat, Jenis Pesawat Udara, Lokasi, Provinsi.</li>
+                                <li><b>Identifikasi Kejadian:</b> Taxonomy by KNKT (Pilih salah satu: Loss of Control in Flight, Runway Excursion, Runway Incursion, Mid-Air Collision, Controlled Flight Into Terrain. Jika lainnya, harap beri keterangan tambahan.), Keterangan Kejadian, Data (Berisi referensi/lampiran tambahan berupa tautan jika tersedia).</li>
+                                <li><b>Tautan Tindakan Keselamatan:</b> Preventive Grounding (Tautan dokumen pencegahan operasional), Pemeriksaan (Tautan hasil pemeriksaan atau inspeksi terkait), Release Grounding (Tautan pelepasan pembatasan operasional jika ada).</li>
+                                <li><b>Informasi Tambahan:</b> Nama Penerbang, Tindak Lanjut Status (Pilih salah satu: Diperiksa, Belum Diperiksa, Tidak Diperiksa), Keterangan Tindak Lanjut (Status tindak lanjut: Open / Close), Catatan (Informasi tambahan lainnya yang relevan).</li>
+                            </ul>
+                            <p class="text-sm ml-4 mt-2">Setelah seluruh data terisi dengan lengkap dan benar, tekan tombol "Kirim" untuk menyimpan data ke dalam sistem. Data akan langsung tercatat dalam database dan dapat ditinjau kembali melalui menu Master Data. Apabila diperlukan perubahan, pengguna dapat memilih data terkait dan klik "Edit" untuk melakukan pembaruan.</p>
+
+                            <p class="text-sm font-medium mt-4">Menu: Database Data by MOR KNKT</p>
+                            <p class="text-sm ml-4 mb-2">Menu ini menampilkan tabel data dari seluruh kejadian keselamatan yang telah diinput melalui formulir Form Data by MOR KNKT. Tampilan disusun dalam format tabel dinamis yang memungkinkan pengguna untuk:</p>
+                            <ul class="list-disc list-inside ml-8 text-sm">
+                                <li>Melihat informasi kejadian secara keseluruhan.</li>
+                                <li>Memantau status tindak lanjut atas kejadian yang tercatat.</li>
+                            </ul>
+                            <p class="text-sm ml-4 mt-2"><b>Filter / Menu Cari:</b> Pengguna dapat memanfaatkan fitur pencarian dan filter untuk menyaring data berdasarkan kriteria tertentu, seperti tanggal kejadian, operator, jenis pesawat, atau status tindak lanjut. Ini membantu dalam pencarian cepat dan analisis data yang lebih terfokus.</p>
+                            <p class="text-sm ml-4 mt-2"><b>Ekspor Data:</b> Tersedia fitur untuk mengekspor data ke format Excel atau PDF, guna mendukung kebutuhan pelaporan atau dokumentasi.</p>
+                            <p class="text-sm ml-4 mt-2"><b>Impor Data:</b> Sistem juga mendukung impor data secara massal dari file eksternal (misalnya Excel), untuk efisiensi input data dalam jumlah besar.</p>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Akhir Panduan Penggunaan Aplikasi RSI (Interactive) -->
+
+                 <div class="mt-6">
+                    <h4 class="text-lg font-semibold mb-3 text-center">Laporan Master Data & Review Laporan Investigasi KNKT</h4>
+                    <iframe height='500px' width='100%' frameborder='0' allowTransparency='true' scrolling='auto' src='https://creatorapp.zohopublic.com/subditstandardisasi/resolution-safety-issue/report-embed/Master_Data_Review_Laporan_Investigasi_KNKT_Report/67GEkTwRYsuKM1keJE2Vm9Jh4HaXMhwJSzxTmppaZyG34Uz7JSZOs8jMvvjahfky8dK3MzHHxuMDmZpPSEEpSkkKhuNPx4g72gdu' title="Laporan Master Data & Review Laporan Investigasi KNKT - Zoho Creator"></iframe>
+                    <p class="text-xs text-slate-500 mt-1 text-center">Laporan Master Data & Review Laporan Investigasi KNKT.</p>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Glossary Section (Placeholder - to be updated if user wants this section) -->
+        <section id="glossary" class="bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold mb-1">Aplikasi Master Glossary</h3>
+                <p class="text-slate-600">Berfungsi sebagai kamus terpusat untuk menyelaraskan definisi dan terjemahan istilah teknis yang digunakan dalam penyusunan regulasi.</p>
+            </div>
+            <div class="mb-8">
+                 <h4 class="text-lg font-semibold mb-4 text-center">Alur Kerja Aplikasi Master Glossary</h4>
+                 <div class="flex flex-col md:flex-row items-stretch justify-center space-y-4 md:space-y-0 md:space-x-4 text-center">
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">1️⃣</div>
+                        <h5 class="font-semibold">Input Istilah</h5>
+                        <p class="text-xs text-slate-500">Staf menginput istilah baru, terjemahan, makna, dan referensi.</p>
+                    </div>
+                    <div class="text-2xl text-slate-300 hidden md:flex md:items-center">→</div>
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">2️⃣</div>
+                        <h5 class="font-semibold">Review & Validasi</h5>
+                        <p class="text-xs text-slate-500">Istilah dan definisi direview oleh tim ahli untuk akurasi dan konsistensi.</p>
+                    </div>
+                    <div class="text-2xl text-slate-300 hidden md:flex md:items-center">→</div>
+                    <div class="flex-1 p-4 bg-slate-100 rounded-lg flex flex-col justify-center">
+                        <div class="text-2xl mb-2">3️⃣</div>
+                        <h5 class="font-semibold">Publikasi & Referensi</h5>
+                        <p class="text-xs text-slate-500">Istilah yang disetujui dipublikasikan dan menjadi referensi standar.</p>
+                    </div>
+                 </div>
+                 <div class="mt-6 p-4 bg-orange-100 rounded-lg border border-orange-300">
+                    <p class="text-sm text-orange-800 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2 flex-shrink-0">
+                            <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.519 13c1.155 2-.273 4.5-2.599 4.5H4.48c-2.326 0-3.754-2.5-2.599-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                        </svg>
+                        <span><b class="font-semibold">Poin Kunci:</b> Aplikasi Master Glossary berfungsi sebagai kamus terpusat. Pengguna menginput istilah baru yang kemudian direview dan divalidasi sebelum dipublikasikan sebagai referensi standar untuk penyusunan regulasi.</span>
+                    </p>
+                 </div>
+            </div>
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold mb-3">Panduan Penggunaan Master Glossary</h4>
+                <div id="glossary-tabs" class="interactive-guide-container space-y-3">
+                    <button data-target="glossary-purpose-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">🎯 Tujuan Master Glossary</span>
+                        <p class="text-sm text-slate-500 mt-1">Fungsi utama dan kegunaan aplikasi.</p>
+                    </button>
+                    <div id="glossary-purpose-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
+                        <p class="text-sm">Menu ini berisi tentang pengertian dari istilah bahasa inggris yang terdapat pada regulasi (CASR, Staff Instruction, Advisory Circular), berfungsi untuk menyelaraskan defisini dari kata tersebut di lingkup Subdit Standardisasi pada saat melakukan penyusunan regulasi.</p>
+                        <p class="text-sm mt-2">Dalam menu ini terdapat beberapa kolom untuk diisi yang akan dijelaskan pada tab berikutnya.</p>
+                    </div>
+
+                    <button data-target="glossary-fields-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">📋 Detail Kolom Isian</span>
+                        <p class="text-sm text-slate-500 mt-1">Penjelasan masing-masing kolom pada formulir.</p>
+                    </button>
+                    <div id="glossary-fields-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                        <p class="text-sm">Berikut adalah penjelasan untuk setiap kolom yang perlu diisi:</p>
+                        <ul class="space-y-2 text-sm list-disc list-inside">
+                            <li>
+                                <b>Frasa Inggris:</b>
+                                <p class="ml-4">Yaitu kata bahasa inggris yang akan dimasukkan.</p>
+                            </li>
+                            <li>
+                                <b>Terjemahan Indonesia:</b>
+                                <p class="ml-4">Terjemahan kata bahasa inggris yang diinput dalam bahasa indonesia.</p>
+                            </li>
+                            <li>
+                                <b>Refrensi:</b>
+                                <p class="ml-4">Acuan atau sumber dari istilah kata yang dimasukkan.<br>Contoh: UU No. 1 Tahun 2009, Deepl Translate, KBBI.</p>
+                            </li>
+                            <li>
+                                <b>Status:</b>
+                                <p class="ml-4">Terdapat 2 pilihan yaitu:</p>
+                                <ul class="list-disc list-inside ml-8">
+                                    <li>Draft: masih berupa rancangan.</li>
+                                    <li>Final: sudah selesai dibahas dan siap diberlakukan.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <b>Makna:</b>
+                                <p class="ml-4">Pengertian kontekstual dari istilah yang diinput.<br>Contoh: Cockpit > ruang kursi pilot atau kopilot pada ruang kemudi (dalam pesawat penumpang yang besar, ruang khusus untuk pilot dan awak pesawat lain).</p>
+                            </li>
+                            <li>
+                                <b>Keterangan:</b>
+                                <p class="ml-4">Catatan atau keterangan lebih lanjut terkait istilah kata tersebut.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-6 text-center">
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold mb-3">Laporan Input Glossary</h4>
+                     <iframe height='500px' width='100%' frameborder='0' allowTransparency='true' scrolling='auto' src='https://creatorapp.zohopublic.com/subditstandardisasi/master-glossary/report-embed/Input_New_Glossary_Report/CUgHwr41Kma5j2U87bPH5NtRDyUP40mXBmECD07CstdBkVZfufVzpTB3JT3Yksy0zbw0j02eZvmBtRqyTWQCPRVs3bw2UBNrKkDn' title="Laporan Input Istilah Baru Glossary - Zoho Creator"></iframe>
+                    <p class="text-xs text-slate-500 mt-1">Laporan Input Glossary.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="text-center p-6 mt-8">
+        <p class="text-sm text-slate-500">© 2025 Subdirektorat Standardisasi. Dasbor Interaktif Panduan Penggunaan.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Chart Initializations Functions (kept for potential future use)
+            function createPieOrDoughnutChart(ctx, type, labels, data, colors, title) { /* ... */ }
+            function createBarChart(ctx, labels, data, chartLabel) { /* ... */ }
+            function createRadarChart(ctx, labels, data, chartLabel) { /* ... */ }
+
+            // Generic Accordion/Tab functionality
+            const interactiveGuideContainers = document.querySelectorAll('.interactive-guide-container'); 
+
+            interactiveGuideContainers.forEach(container => {
+                const buttons = container.querySelectorAll('.tab-button');
+                
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const targetId = button.dataset.target;
+                        const targetContent = document.getElementById(targetId);
+
+                        if (!targetContent) {
+                            console.error('Target content not found for button:', button);
+                            return; 
+                        }
+
+                        const isActive = button.classList.contains('active');
+
+                        // If the clicked button is not active, then close all other tabs in this container
+                        if (!isActive) {
+                            container.querySelectorAll('.tab-button.active').forEach(activeButton => {
+                                activeButton.classList.remove('active');
+                                const activeContentId = activeButton.dataset.target;
+                                const activeContent = document.getElementById(activeContentId);
+                                if (activeContent) {
+                                    activeContent.classList.add('hidden');
+                                }
+                            });
+                        }
+                        
+                        // Now, toggle the clicked tab
+                        if (isActive) { 
+                            button.classList.remove('active');
+                            targetContent.classList.add('hidden');
+                        } else { 
+                            button.classList.add('active');
+                            targetContent.classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+            
+        });
+    </script>
+</body>
+</html>
+�
