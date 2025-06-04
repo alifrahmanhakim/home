@@ -357,7 +357,7 @@
                     
                     <!-- Tab 4: Tampilan Tabel Monitoring PQ (PQ Report – Monitoring Existing PQs) -->
                     <button data-target="pqs-report-existing-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
-                        <span class="font-semibold">� Tampilan Tabel Monitoring PQ (Existing PQs)</span>
+                        <span class="font-semibold"> Tampilan Tabel Monitoring PQ (Existing PQs)</span>
                         <p class="text-sm text-slate-500 mt-1">Melihat data PQ yang sudah ada (migrasi).</p>
                     </button>
                     <div id="pqs-report-existing-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
@@ -580,7 +580,7 @@
             </div>
         </section>
 
-        <!-- Glossary Section (Placeholder - to be updated if user wants this section) -->
+        <!-- Glossary Section -->
         <section id="glossary" class="bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
             <div class="mb-6">
                 <h3 class="text-2xl font-bold mb-1">Aplikasi Master Glossary</h3>
@@ -620,50 +620,60 @@
                 <h4 class="text-lg font-semibold mb-3">Panduan Penggunaan Master Glossary</h4>
                 <div id="glossary-tabs" class="interactive-guide-container space-y-3">
                     <button data-target="glossary-purpose-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
-                        <span class="font-semibold">🎯 Tujuan Master Glossary</span>
-                        <p class="text-sm text-slate-500 mt-1">Fungsi utama dan kegunaan aplikasi.</p>
+                        <span class="font-semibold">🎯 TSU (Teks Sumber Utama/Utuh)</span>
+                        <!-- <p class="text-sm text-slate-500 mt-1">Fungsi utama aplikasi sebagai penyelaras definisi istilah.</p> -->
                     </button>
-                    <div id="glossary-purpose-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50">
-                        <p class="text-sm">Menu ini berisi tentang pengertian dari istilah bahasa inggris yang terdapat pada regulasi (CASR, Staff Instruction, Advisory Circular), berfungsi untuk menyelaraskan defisini dari kata tersebut di lingkup Subdit Standardisasi pada saat melakukan penyusunan regulasi.</p>
-                        <p class="text-sm mt-2">Dalam menu ini terdapat beberapa kolom untuk diisi yang akan dijelaskan pada tab berikutnya.</p>
+                    <div id="glossary-purpose-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                        <p class="text-sm">Merujuk pada teks asli atau naskah awal yang menjadi titik berangkat. Istilah "Utama" dapat menekankan bahwa ini adalah versi primer atau paling otoritatif yang digunakan, terutama jika ada beberapa varian teks sumber. Istilah "Utuh" menekankan kelengkapan dan integritas teks sumber yang dijadikan acuan.</p>
+                        <p class="text-sm">TSU adalah bahan dasar sebelum mengalami proses seperti penerjemahan atau penyuntingan mendalam. Keaslian dan kondisinya sebelum modifikasi adalah ciri utamanya.</p>
                     </div>
 
                     <button data-target="glossary-fields-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
-                        <span class="font-semibold">📋 Detail Kolom Isian</span>
-                        <p class="text-sm text-slate-500 mt-1">Penjelasan masing-masing kolom pada formulir.</p>
+                        <span class="font-semibold">📋 TSA (Teks Sasaran)</span>
+                        <!-- <p class="text-sm text-slate-500 mt-1">Penjelasan masing-masing kolom pada formulir.</p> -->
                     </button>
                     <div id="glossary-fields-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
-                        <p class="text-sm">Berikut adalah penjelasan untuk setiap kolom yang perlu diisi:</p>
-                        <ul class="space-y-2 text-sm list-disc list-inside">
-                            <li>
-                                <b>Frasa Inggris:</b>
-                                <p class="ml-4">Yaitu kata bahasa inggris yang akan dimasukkan.</p>
-                            </li>
-                            <li>
-                                <b>Terjemahan Indonesia:</b>
-                                <p class="ml-4">Terjemahan kata bahasa inggris yang diinput dalam bahasa indonesia.</p>
-                            </li>
-                            <li>
-                                <b>Refrensi:</b>
-                                <p class="ml-4">Acuan atau sumber dari istilah kata yang dimasukkan.<br>Contoh: UU No. 1 Tahun 2009, Deepl Translate, KBBI.</p>
-                            </li>
-                            <li>
-                                <b>Status:</b>
-                                <p class="ml-4">Terdapat 2 pilihan yaitu:</p>
-                                <ul class="list-disc list-inside ml-8">
-                                    <li>Draft: masih berupa rancangan.</li>
-                                    <li>Final: sudah selesai dibahas dan siap diberlakukan.</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <b>Makna:</b>
-                                <p class="ml-4">Pengertian kontekstual dari istilah yang diinput.<br>Contoh: Cockpit > ruang kursi pilot atau kopilot pada ruang kemudi (dalam pesawat penumpang yang besar, ruang khusus untuk pilot dan awak pesawat lain).</p>
-                            </li>
-                            <li>
-                                <b>Keterangan:</b>
-                                <p class="ml-4">Catatan atau keterangan lebih lanjut terkait istilah kata tersebut.</p>
-                            </li>
-                        </ul>
+                        <p class="text-sm">Ini adalah hasil dari proses penerjemahan TSU ke dalam bahasa lain (bahasa target).</p>
+                        <p class="text-sm">Tujuan utama TSA adalah untuk menyampaikan makna, pesan, dan nuansa yang terkandung dalam TSU secara akurat dan alami dalam bahasa target, dengan memperhatikan konteks budaya dan linguistik pembaca sasaran.</p>
+                    </div>
+
+                    <button data-target="glossary-edited-text-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">📝 (Teks yang sudah disunting)</span>
+                    </button>
+                    <div id="glossary-edited-text-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                        <p class="text-sm">Ini adalah teks, baik itu TSU (misalnya, sebelum publikasi asli atau sebelum diterjemahkan) maupun TSA (setelah diterjemahkan), yang telah melalui proses penyuntingan atau revisi.</p>
+                        <p class="text-sm">Penyuntingan bertujuan untuk meningkatkan kualitas teks melalui perbaikan aspek-aspek seperti ejaan, tata bahasa, gaya bahasa, kejelasan, koherensi (keterpaduan alur pikiran), kohesi (kepaduan antar kalimat), akurasi faktual, dan kesesuaian dengan target pembaca. Hasilnya adalah versi teks yang lebih baik dan lebih siap guna.</p>
+                    </div>
+
+                    <button data-target="glossary-reference-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">📚 Refrensi (Daftar Pustaka)</span>
+                    </button>
+                    <div id="glossary-reference-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                        <p class="text-sm">Merupakan daftar sistematis dari semua sumber informasi (buku, artikel, situs web, TSU itu sendiri jika merupakan karya yang dianalisis, dll.) yang dikutip, dirujuk, atau digunakan sebagai landasan dalam penyusunan, penerjemahan, atau analisis teks.</p>
+                        <p class="text-sm">Fungsinya sangat penting untuk memberikan atribusi kepada penulis asli, memungkinkan verifikasi dan penelusuran lebih lanjut oleh pembaca, menunjukkan kredibilitas, serta menghindari plagiarisme. Penulisannya mengikuti standar sitasi tertentu.</p>
+                    </div>
+                    
+                    <button data-target="glossary-meaning-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">💡 Makna</span>
+                    </button>
+                    <div id="glossary-meaning-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                         <p class="text-sm">Ini adalah inti dari komunikasi tekstual, merujuk pada arti, pesan, konsep, dan intensi yang terkandung atau ingin disampaikan melalui teks (baik TSU, TSA, maupun teks yang disunting).</p>
+                         <p class="text-sm">Dalam penerjemahan, transfer makna yang setia dari TSU ke TSA adalah krusial. Dalam penyuntingan, kejelasan dan ketepatan penyampaian makna menjadi fokus. Pemahaman makna melibatkan analisis leksikal (kata), gramatikal (struktur kalimat), kontekstual (situasi dan budaya), dan pragmatis (maksud penutur/penulis).</p>
+                    </div>
+
+                    <button data-target="glossary-desc-app-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">ℹ️ Keterangan / Pengaplikasian</span>
+                    </button>
+                    <div id="glossary-desc-app-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                        <p class="text-sm"><b class="font-semibold">Keterangan:</b> Merupakan informasi tambahan, catatan penjelasan, anotasi, atau klarifikasi yang diberikan untuk memperjelas aspek tertentu dari TSU, TSA, proses penerjemahan/penyuntingan, atau isi referensi. Ini bisa berupa catatan kaki, glosarium, atau komentar editor/penerjemah.</p>
+                        <p class="text-sm"><b class="font-semibold">Pengaplikasian:</b> Merujuk pada bagaimana konsep, teori, informasi, atau makna yang diperoleh dari teks dapat diterapkan atau digunakan dalam konteks praktis. Misalnya, bagaimana hasil analisis TSU dapat digunakan untuk penelitian lebih lanjut, atau bagaimana prinsip penerjemahan tertentu diaplikasikan dalam mentransfer makna dari TSU ke TSA.</p>
+                    </div>
+
+                    <button data-target="glossary-status-content" class="tab-button w-full text-left p-4 rounded-lg border-2 border-slate-200 bg-white hover:border-sky-500 transition-all">
+                        <span class="font-semibold">📊 Status</span>
+                    </button>
+                    <div id="glossary-status-content" class="tab-content hidden p-4 border rounded-lg bg-slate-50/50 space-y-3">
+                        <p class="text-sm">Menunjukkan kondisi, tahapan, atau progres terkini dari sebuah teks atau proses yang terkait dengannya.</p>
                     </div>
                 </div>
             </div>
@@ -734,4 +744,3 @@
     </script>
 </body>
 </html>
-�
